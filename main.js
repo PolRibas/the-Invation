@@ -11,10 +11,10 @@ function main() {
 
     function crateSplashScreen() {
         var splashScreen = buildDom(`
-        <section>
+        <main><section class="flex-section">
         <h1>THE INVATION</h1>
-        <button>Start</button>
-        </section>
+        <button class="myButton">Start</button>
+        </section></main>
         `);
         var startButton = splashScreen.querySelector('button');
         startButton.addEventListener('click', createGameScreen);
@@ -22,9 +22,9 @@ function main() {
 
     function createGameScreen() {
         var gameScreen = buildDom(`
-        <section>
+        <main><section class="flex-section">
         <canvas width="400" height=400></canvas>
-        </section>
+        </section></main>
         `);
         var canvas = document.querySelector('canvas');
         var game = new Game(canvas);
@@ -47,11 +47,11 @@ function main() {
 
     function createGameOverScreen(score) {
         var gameOverScreen = buildDom(`
-        <section>
+        <main><section class="flex-section">
         <h1>GAME OVER</h1>
         <p>OMG!!! you make ${score} points that time</p>
-        <button>Back menu</button>
-        </section>
+        <button class="myButton">Back menu</button>
+        </section></main>
         `);
         console.log(score);
         var restartButton = gameOverScreen.querySelector('button');

@@ -6,12 +6,21 @@ function Alien(canvas, sendY, sendDX, sendDY) {
     this.dx = sendDX;
     this.dy = sendDY;
     this.alive = true;
+    this.img = new Image();
+    this.img.src = 'alien-purple.png';
 }
 
 Alien.prototype.draw = function() {
     if (this.alive) {
-        this.ctx.fillStyle = 'red';
-        this.ctx.fillRect(this.x, this.y, this.dx, this.dy);
+        var ctx = this.ctx;
+        ctx.shadowOffsetX = 10;
+        ctx.shadowOffsetY = 10;
+        ctx.shadowColor = 'black';
+        ctx.shadowBlur = 30;
+        //this.ctx.fillStyle = 'red';
+        //this.ctx.fillRect(this.x, this.y, this.dx, this.dy);
+        ctx.drawImage(this.img, this.x, this.y, this.dx, this.dy);
+
     }
 }
 

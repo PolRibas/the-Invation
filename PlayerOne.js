@@ -10,11 +10,19 @@ function Player(canvas, yInicial) {
     this.inTheJump = false;
     this.inPlatform = 1;
     this.bullet = [];
+    this.img = new Image();
+    this.img.src = 'astronauta.png';
+    this.shadowColor = "black";
+    this.shadowBlur = 10;
+    this.shadowOffsetX = 10;
+    this.shadowOffsetY = 10;
 }
 
 Player.prototype.draw = function() {
-    this.ctx.fillStyle = 'blue';
-    this.ctx.fillRect(this.x, this.y, this.dx, this.dy);
+    var ctx = this.ctx;
+    // this.ctx.fillStyle = 'blue';
+    // this.ctx.fillRect(this.x, this.y, this.dx, this.dy);
+    ctx.drawImage(this.img, this.x, this.y, this.dx, this.dy);
 }
 
 Player.prototype.jump = function() {
@@ -62,8 +70,7 @@ Player.prototype.checkcolitionAlien = function(alien) {
     var yAst = Math.floor(this.y)
     var yAstFinish = Math.floor(this.y + this.dy)
     var xAstFinish = Math.floor(this.x + this.dx);
-    var answer = (yAlien > yAst && yAlienFinish > yAst && xAstFinish > xAlienStart && xAstFinish < xAlienFinish);
-
+    var answer = (yAlien < yAst && yAlienFinish > yAst && xAstFinish > xAlienStart && xAstFinish < xAlienFinish);
     return answer;
 }
 

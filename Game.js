@@ -4,6 +4,7 @@ function Game(canvas) {
     this.player = null;
     this.plataforms = [];
     this.aliens = [];
+    this.backgraund = [];
     this.isGameOver = false;
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d')
@@ -22,7 +23,10 @@ Game.prototype.startGame = function() {
         this.plataforms[0].dx = 500;
         this.plataforms[0].dy = 6;
         this.aliens[0] = new Alien(this.canvas, this.plataforms[0].y - 26, 26, 26);
-
+        this.backgraund[0] = new Backgraund(this.canvas, (this.canvas.height + 20) * 1427 / 495);
+        this.backgraund[1] = new Backgraund(this.canvas, 0);
+        this.backgraund[2] = new Backgraund(this.canvas, (this.canvas.height + 20) * 2 * 1427 / 495);
+        this.backgraund[3] = new Backgraund(this.canvas, (this.canvas.height + 20) * 3 * 1427 / 495);
     }
     this.player = new Player(this.canvas, this.canvas.height / 6);
 
@@ -69,6 +73,9 @@ Game.prototype.updated = function() {
             plataform.position(yConflict);
         }
     });
+    this.backgraund.forEach((back) => {
+        back.move(this.velocidad / 10);
+    });
     this.aliens.forEach((alien, index) => {
         alien.move(this.velocidad / 10);
         if (alien.alive) {
@@ -106,6 +113,9 @@ Game.prototype.clear = function() {
 }
 
 Game.prototype.draw = function() {
+    this.backgraund.forEach(function(back) {
+        back.draw();
+    });
     this.plataforms.forEach(function(platform) {
         platform.draw();
     })

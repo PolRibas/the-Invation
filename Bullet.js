@@ -8,7 +8,7 @@ function Bullet(canvas, playerY) {
 }
 
 Bullet.prototype.draw = function() {
-    this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = 'white';
     this.ctx.fillRect(this.x, this.y, this.dx, this.dy);
 }
 

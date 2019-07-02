@@ -5,11 +5,19 @@ function Plataform(canvas, yDePlayer) {
     this.y = yDePlayer + 16 + (Math.floor(Math.random() * 120) - 55);
     this.dx = Math.floor(Math.random() * 140) + 70;
     this.dy = 6;
+    this.shadowColor = "black";
+    this.shadowBlur = 10;
+    this.shadowOffsetX = 10;
+    this.shadowOffsetY = 10;
     //got alien??
 }
 
 Plataform.prototype.draw = function() {
-    this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = 'grey';
+    this.ctx.shadowOffsetX = 10;
+    this.ctx.shadowOffsetY = 10;
+    this.ctx.shadowColor = 'black';
+    this.ctx.shadowBlur = 30;
     this.ctx.fillRect(this.x, this.y, this.dx, this.dy);
 }
 
