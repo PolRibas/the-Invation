@@ -27,10 +27,18 @@ function main() {
         `);
         var canvas = document.querySelector('canvas');
         var game = new Game(canvas);
-        //game.gameOberCallback(createGameOverScreen);
+        game.gameOverCallback(createGameOverScreen);
         document.addEventListener('keydown', function(event) {
             if (event.keyCode === 38) {
                 game.player.inTheJump = true;
+                setTimeout(function() {
+                    game.player.inTheJump = true;
+                }, 17)
+            } else if (event.keyCode === 39) {
+                game.player.createBullet(game.velocidad / 10);
+            } else if (event.keyCode === 27) {
+                game.isGameOver = true;
+                createGameOverScreen()
             }
         })
         game.startGame();

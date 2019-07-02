@@ -3,13 +3,13 @@ function Plataform(canvas, yDePlayer) {
     this.ctx = this.canvas.getContext('2d');
     this.x = this.canvas.width + 3;
     this.y = yDePlayer + 16 + (Math.floor(Math.random() * 120) - 55);
-    this.dx = Math.floor(Math.random() * 70) + 70;
+    this.dx = Math.floor(Math.random() * 140) + 70;
     this.dy = 6;
     //got alien??
 }
 
 Plataform.prototype.draw = function() {
-    this.ctx.fillStyle = 'red';
+    this.ctx.fillStyle = 'black';
     this.ctx.fillRect(this.x, this.y, this.dx, this.dy);
 }
 
@@ -30,8 +30,5 @@ Plataform.prototype.position = function(yConflict) {
         } else {
             this.y = this.y - 100;
         }
-    }
-    if (Math.abs(yConflict - this.y) < 50) {
-        this.y + 120;
     }
 }
