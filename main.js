@@ -1,7 +1,8 @@
 'use strict';
 
 function main() {
-    var mainElement = document.querySelector('#site-main')
+    var mainElement = document.querySelector('#site-main');
+    var score = 0;
 
     function buildDom(html) {
         mainElement.innerHTML = html;
@@ -38,19 +39,21 @@ function main() {
                 game.player.createBullet(game.velocidad / 10);
             } else if (event.keyCode === 27) {
                 game.isGameOver = true;
-                createGameOverScreen()
+                createGameOverScreen(game.score);
             }
         })
         game.startGame();
     }
 
-    function createGameOverScreen() {
+    function createGameOverScreen(score) {
         var gameOverScreen = buildDom(`
         <section>
         <h1>GAME OVER</h1>
+        <p>OMG!!! you make ${score} points that time</p>
         <button>Back menu</button>
         </section>
         `);
+        console.log(score);
         var restartButton = gameOverScreen.querySelector('button');
         restartButton.addEventListener('click', crateSplashScreen);
     }

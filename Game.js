@@ -10,6 +10,7 @@ function Game(canvas) {
     this.onGameOver = null;
     this.velocidad = 3;
     this.i = 0;
+    this.score = 0;
 }
 
 Game.prototype.startGame = function() {
@@ -39,6 +40,7 @@ Game.prototype.startGame = function() {
 }
 
 Game.prototype.updated = function() {
+    this.setScore();
     if (this.player.inTheJump) {
         this.player.tempoSalto++;
         this.player.jump();
@@ -73,7 +75,7 @@ Game.prototype.updated = function() {
             var checkColicion = this.player.checkcolitionAlien(alien);
             if (checkColicion) {
                 this.isGameOver = true;
-                this.onGameOver();
+                this.onGameOver(this.score);
             }
         }
     });
@@ -85,7 +87,7 @@ Game.prototype.updated = function() {
     if (this.player.y > this.canvas.height) {
         console.log('GAME OVER');
         this.isGameOver = true;
-        this.onGameOver();
+        this.onGameOver(this.score);
     }
     if (this.player.bullet.length >= 1) {
         this.player.bullet.forEach(bull => {
@@ -121,4 +123,16 @@ Game.prototype.draw = function() {
 
 Game.prototype.gameOverCallback = function(callback) {
     this.onGameOver = callback;
+}
+
+Game.prototype.setScore = function() {
+    this.score = 0;
+    this.aliens.forEach((alien) => {
+        if (!alien.alive) {
+            this.score += 131;
+        }
+    })
+    this.plataforms.forEach((platform) => {
+        this.score += 16;
+    })
 }
