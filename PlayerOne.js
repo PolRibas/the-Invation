@@ -1,14 +1,14 @@
-function Player(canvas) {
+function Player(canvas, yInicial) {
     //imagen
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.x = 30;
-    this.y = 164;
+    this.y = yInicial;
     this.dx = 19;
     this.dy = 36;
     this.tempoSalto = 0;
     this.inTheJump = false;
-    this.startLoop = false;
+    this.inPlatform = 1;
 }
 
 Player.prototype.draw = function() {
@@ -27,11 +27,16 @@ Player.prototype.jump = function() {
 }
 
 Player.prototype.checkcolition = function(plataform) {
-    if (plataform.y <= this.y + this.dy) {
+    var yPlat = Math.floor(plataform.y);
+    var xPlatStart = null;
+    var xPlatFinish = null;
+    var yAst = Math.floor(this.y + this.dy)
+    var xAstStart = null;
+    var xAstFinish = null;
+    if (yPlat === yAst) {
         this.inTheJump = false;
         this.tempoSalto = 0;
     }
-    this.startLoop = false
 }
 
 //disparar

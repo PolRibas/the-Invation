@@ -20,7 +20,7 @@ Game.prototype.startGame = function() {
         this.plataforms[0].dx = 500;
         this.plataforms[0].dy = 6;
     }
-    this.player = new Player(this.canvas);
+    this.player = new Player(this.canvas, 164);
     console.log(this.player);
     console.log("Cargando Loop")
     var loop = () => {
@@ -49,7 +49,6 @@ Game.prototype.updated = function() {
         var newPlatform = new Plataform(this.canvas, this.player.y);
         this.plataforms.push(newPlatform);
     }
-    this.player.startLoop = true;
     this.plataforms.forEach((plataform, index) => {
         plataform.move(this.velocidad / 10);
         this.player.checkcolition(plataform);
