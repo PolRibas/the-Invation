@@ -2,6 +2,7 @@
 
 html {
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 *,
@@ -28,14 +29,14 @@ body {
 
 h1 {
     color: #bc80ea;
+    text-shadow: 2% 2% 1% 1%#111;
 }
-
-h2 {}
-
-h3 {}
 
 p {
     margin: 0;
+    color: white;
+    margin: 2.5%;
+    font-size: 1.2em;
 }
 
 

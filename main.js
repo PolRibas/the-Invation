@@ -2,7 +2,6 @@
 
 function main() {
     var mainElement = document.querySelector('#site-main');
-    var score = 0;
 
     function buildDom(html) {
         mainElement.innerHTML = html;
@@ -10,11 +9,20 @@ function main() {
     }
 
     function crateSplashScreen() {
+
+        var ranking = JSON.parse(localStorage.getItem('bestScore'));
+        if (ranking === undefined) {
+            var score = 0;
+        } else {
+            var score = ranking.best;
+        }
+
         var splashScreen = buildDom(`
-        <main><section class="flex-section">
-        <h1>THE INVATION</h1>
+        <section class="flex-section">
+        <h1>THE INVASION</h1>
+        <p>Best score is: ${score}</p>
         <button class="myButton">Start</button>
-        </section></main>
+        </section>
         `);
         var startButton = splashScreen.querySelector('button');
         startButton.addEventListener('click', createGameScreen);
@@ -22,38 +30,45 @@ function main() {
 
     function createGameScreen() {
         var gameScreen = buildDom(`
-        <main><section class="flex-section">
+        <section class="flex-section">
+        <h1>THE INVASION</h1>
         <canvas width="400" height=400></canvas>
-        </section></main>
+        </section>
         `);
         var canvas = document.querySelector('canvas');
         var game = new Game(canvas);
         game.gameOverCallback(createGameOverScreen);
         document.addEventListener('keydown', function(event) {
-            if (event.keyCode === 38) {
+            if (event.keyCode === 38 || event.keyCode === 87 || event.keyCode === 72) {
                 game.player.inTheJump = true;
                 setTimeout(function() {
                     game.player.inTheJump = true;
                 }, 17)
-            } else if (event.keyCode === 39) {
+                setTimeout(function() {
+                    game.player.inTheJump = true;
+                }, 34)
+            } else if (event.keyCode === 39 || event.keyCode === 32 || event.keyCode === 68) {
                 game.player.createBullet(game.velocidad / 10);
             } else if (event.keyCode === 27) {
                 game.isGameOver = true;
-                createGameOverScreen(game.score);
+                createGameOverScreen(game.score, game.level);
             }
         })
         game.startGame();
     }
 
-    function createGameOverScreen(score) {
+    function createGameOverScreen(score, level) {
+        var ranking = JSON.parse(localStorage.getItem('bestScore'));
+        if (ranking.best < score) {
+            localStorage.setItem('bestScore', JSON.stringify({ best: score }));
+        }
         var gameOverScreen = buildDom(`
-        <main><section class="flex-section">
+        <section class="flex-section">
         <h1>GAME OVER</h1>
-        <p>OMG!!! you make ${score} points that time</p>
+        <p>Level ${level}!!! you make ${score} points that time</p>
         <button class="myButton">Back menu</button>
-        </section></main>
+        </section>
         `);
-        console.log(score);
         var restartButton = gameOverScreen.querySelector('button');
         restartButton.addEventListener('click', crateSplashScreen);
     }

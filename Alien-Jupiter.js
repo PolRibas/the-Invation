@@ -1,4 +1,4 @@
-function Alien(canvas, sendY, sendDX, sendDY) {
+function AlienJupiter(canvas, sendY, sendDX, sendDY) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.x = this.canvas.width + 10;
@@ -7,16 +7,17 @@ function Alien(canvas, sendY, sendDX, sendDY) {
     this.dy = sendDY;
     this.alive = true;
     this.img = new Image();
-    this.img.src = 'alien-purple.png';
+    this.img.src = 'alien-pink.png';
 }
 
 Alien.prototype.draw = function() {
     if (this.alive) {
+        var ctx = this.ctx;
         this.ctx.shadowColor = "black";
         this.ctx.shadowBlur = 15;
         this.ctx.shadowOffsetX = 3;
         this.ctx.shadowOffsetY = 1;
-        this.ctx.drawImage(this.img, this.x, this.y, this.dx, this.dy);
+        ctx.drawImage(this.img, this.x, this.y, this.dx, this.dy);
     }
 }
 

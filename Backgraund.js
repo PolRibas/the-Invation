@@ -10,12 +10,11 @@ function Backgraund(canvas, sendX) {
 }
 
 Backgraund.prototype.draw = function() {
-    var ctx = this.ctx;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-    ctx.shadowColor = 'black';
-    ctx.shadowBlur = 0;
-    ctx.drawImage(this.img, this.x, this.y, this.dx, this.dy);
+    this.ctx.shadowOffsetX = 0;
+    this.ctx.shadowOffsetY = 0;
+    this.ctx.shadowColor = 'black';
+    this.ctx.shadowBlur = 0;
+    this.ctx.drawImage(this.img, this.x, this.y, this.dx, this.dy);
 }
 
 Backgraund.prototype.move = function(velocidad) {

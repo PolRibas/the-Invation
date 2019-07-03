@@ -1,5 +1,4 @@
 function Player(canvas, yInicial) {
-    //imagen
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.x = 30;
@@ -12,17 +11,14 @@ function Player(canvas, yInicial) {
     this.bullet = [];
     this.img = new Image();
     this.img.src = 'astronauta.png';
-    this.shadowColor = "black";
-    this.shadowBlur = 10;
-    this.shadowOffsetX = 10;
-    this.shadowOffsetY = 10;
 }
 
 Player.prototype.draw = function() {
-    var ctx = this.ctx;
-    // this.ctx.fillStyle = 'blue';
-    // this.ctx.fillRect(this.x, this.y, this.dx, this.dy);
-    ctx.drawImage(this.img, this.x, this.y, this.dx, this.dy);
+    this.ctx.shadowColor = "grey";
+    this.ctx.shadowBlur = 15;
+    this.ctx.shadowOffsetX = 3;
+    this.ctx.shadowOffsetY = 1;
+    this.ctx.drawImage(this.img, this.x, this.y, this.dx, this.dy);
 }
 
 Player.prototype.jump = function() {
@@ -41,22 +37,12 @@ Player.prototype.checkcolition = function(plataform) {
     var xPlatFinish = Math.floor(plataform.x + plataform.dx);
     var yAst = Math.floor(this.y + this.dy)
     var xAstFinish = Math.floor(this.x + this.dx);
-    var onTopOfPlatform = yPlat === yAst && xAstFinish > xPlatStart && xAstFinish < xPlatFinish;
-    var onTopOfPlatformErrorMarginTop = yPlat + 1 === yAst && xAstFinish > xPlatStart && xAstFinish < xPlatFinish;
-    var onTopOfPlatformErrorMarginDown = yPlat - 1 === yAst && xAstFinish > xPlatStart && xAstFinish < xPlatFinish;
+    var onTopOfPlatform = yPlat === yAst && xAstFinish > xPlatStart && xAstFinish < xPlatFinish + 12;
+    var onTopOfPlatformErrorMarginTop = yPlat + 1 === yAst && xAstFinish > xPlatStart && xAstFinish < xPlatFinish + 12;
+    var onTopOfPlatformErrorMarginDown = yPlat - 1 === yAst && xAstFinish > xPlatStart && xAstFinish < xPlatFinish + 12;
+    var ErrorCheckTopOfPlatform = onTopOfPlatform || onTopOfPlatformErrorMarginTop || onTopOfPlatformErrorMarginDown;
 
-    if (this.inTheJump) {
-        if (onTopOfPlatform) {
-            this.inTheJump = false;
-            this.tempoSalto = 0;
-        }
-    }
-    if (this.inTheJump && onTopOfPlatformErrorMarginTop) {
-        this.inTheJump = true;
-        this.tempoSalto = 0;
-    }
-    if (this.inTheJump && onTopOfPlatformErrorMarginDown) {
-
+    if (ErrorCheckTopOfPlatform) {
         this.inTheJump = false;
         this.tempoSalto = 0;
     }
@@ -67,8 +53,7 @@ Player.prototype.checkcolitionAlien = function(alien) {
     var yAlienFinish = Math.floor(alien.y + alien.dy);
     var xAlienStart = Math.floor(alien.x);
     var xAlienFinish = Math.floor(alien.x + alien.dx);
-    var yAst = Math.floor(this.y)
-    var yAstFinish = Math.floor(this.y + this.dy)
+    var yAst = Math.floor(this.y + this.dy / 2)
     var xAstFinish = Math.floor(this.x + this.dx);
     var answer = (yAlien < yAst && yAlienFinish > yAst && xAstFinish > xAlienStart && xAstFinish < xAlienFinish);
     return answer;
@@ -84,7 +69,4 @@ Player.prototype.gravity = function(platform) {
 Player.prototype.createBullet = function(velocity) {
     var bullet = new Bullet(this.canvas, this.y);
     this.bullet.push(bullet);
-    (this.bullet);
 }
-
-//disparar
