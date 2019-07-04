@@ -12,7 +12,6 @@ function Backgraund(canvas, sendX) {
 Backgraund.prototype.draw = function() {
     this.ctx.shadowOffsetX = 0;
     this.ctx.shadowOffsetY = 0;
-    this.ctx.shadowColor = 'black';
     this.ctx.shadowBlur = 0;
     this.ctx.drawImage(this.img, this.x, this.y, this.dx, this.dy);
 }

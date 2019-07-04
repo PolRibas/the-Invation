@@ -5,6 +5,7 @@ function Bullet(canvas, playerY) {
     this.dy = 2;
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
+    this.sound = new Audio('laserBullet.mp3');
 }
 
 Bullet.prototype.draw = function() {
@@ -15,4 +16,9 @@ Bullet.prototype.draw = function() {
 Bullet.prototype.move = function(velocidad) {
     this.x = this.x + (velocidad * 2);
 
+}
+
+Bullet.prototype.screem = function() {
+    this.sound.play('laserBullet.mp3');
+    console.log('audio');
 }

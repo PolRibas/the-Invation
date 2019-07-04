@@ -1,13 +1,13 @@
-function Alien(canvas, sendY, sendDX, sendDY) {
+function Alien(canvas, sendY, sendDX, sendDY, alienImag) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
-    this.x = this.canvas.width + 10;
+    this.x = this.canvas.width + 40;
     this.y = sendY;
     this.dx = sendDX;
     this.dy = sendDY;
     this.alive = true;
     this.img = new Image();
-    this.img.src = 'alien-purple.png';
+    this.img.src = alienImag;
 }
 
 Alien.prototype.draw = function() {

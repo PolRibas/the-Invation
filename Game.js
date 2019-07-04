@@ -1,11 +1,9 @@
 'use strict';
 
-function Game(canvas) {
+function Game(canvas, img) {
     this.player = null;
     this.plataforms = [];
     this.aliens = [];
-    this.marthAlien = [];
-    this.jupiterAlien = [];
     this.backgraund = [];
     this.isGameOver = false;
     this.canvas = canvas;
@@ -15,6 +13,8 @@ function Game(canvas) {
     this.i = 0;
     this.score = 0;
     this.level = 1;
+    this.playerImag = img;
+    this.alienImag = ['alien-pink.png', 'alien-blue.png', 'alien-purple.png'];
 }
 
 Game.prototype.startGame = function() {
@@ -44,7 +44,8 @@ Game.prototype.updated = function() {
         var newPlatform = new Plataform(this.canvas, this.platformCheck());
         this.plataforms.push(newPlatform);
         if (Math.random() > 0.75) {
-            var newAlien = new Alien(this.canvas, newPlatform.y - 26, 26, 26);
+            var imgAlienRandom = this.alienImag[Math.floor(Math.random() * 2 + 0.2)]
+            var newAlien = new Alien(this.canvas, newPlatform.y - 26, 26, 26, imgAlienRandom);
             this.aliens.push(newAlien);
         }
     }
@@ -71,7 +72,6 @@ Game.prototype.updated = function() {
     });
 
     if (this.player.y <= 0) {
-
         this.player.tempoSalto = 750;
         this.player.inTheJump = true;
     }
@@ -115,14 +115,14 @@ Game.prototype.draw = function() {
 }
 
 Game.prototype.initializeObjects = function() {
-    this.player = new Player(this.canvas, this.canvas.height / 6);
+    this.player = new Player(this.canvas, this.canvas.height / 6, this.playerImag);
     this.plataforms[0] = new Plataform(this.canvas, this.i);
     this.plataforms[0].y = 200;
     this.plataforms[0].x = 0;
-    this.plataforms[0].dx = 600;
+    this.plataforms[0].dx = this.canvas.width + 90;
     this.plataforms[0].dy = 6;
-    this.aliens[0] = new Alien(this.canvas, this.plataforms[0].y - 26, 26, 26);
-    for (var j = 0; j < 10; j++) {
+    this.aliens[0] = new Alien(this.canvas, this.plataforms[0].y - 26, 26, 26, 'alien-purple.png');
+    for (var j = 0; j < 20; j++) {
         this.backgraund[j] = new Backgraund(this.canvas, (this.canvas.height + 20) * j * 1427 / 495);
     }
 }
@@ -139,7 +139,7 @@ Game.prototype.setScore = function() {
             this.score += 13 + (this.level * 3);
         }
     })
-    this.plataforms.forEach((platform) => {
+    this.plataforms.forEach(() => {
         this.score += 2 + (this.level * 3);
     })
     this.levelUp();
@@ -147,16 +147,16 @@ Game.prototype.setScore = function() {
 
 Game.prototype.levelUp = function() {
     if (this.score > 100 && this.level === 1) {
-        this.velocidad += 0.13;
+        this.velocidad += 0.03;
         this.level++;
     } else if (this.score > 400 && this.level === 2) {
-        this.velocidad += 0.24;
+        this.velocidad += 0.14;
         this.level++;
-    } else if (this.score > 1000 && this.level === 3) {
-        this.velocidad += 0.35;
+    } else if (this.score > 800 && this.level === 3) {
+        this.velocidad += 0.25;
         this.level++;
-    } else if (this.score > 2200 && this.level === 4) {
-        this.velocidad += 0.46;
+    } else if (this.score > 1700 && this.level === 4) {
+        this.velocidad += 0.36;
         this.level++;
     } else if (this.score > 3400 && this.level === 5) {
         this.velocidad += 0.57;
@@ -168,7 +168,7 @@ Game.prototype.platformCheck = function() {
     do {
         var check = this.plataforms[this.plataforms.length - 1].y;
         var newOne = check + (Math.random() * 140) - 70;
-    } while (Math.abs(check - newOne) < 30 || newOne > this.canvas.height - 30 || newOne < 30);
+    } while (Math.abs(check - newOne) < 30 || newOne > this.canvas.height - 30 || newOne < 150);
     return newOne;
 }
 

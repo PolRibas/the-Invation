@@ -1,4 +1,4 @@
-function Player(canvas, yInicial) {
+function Player(canvas, yInicial, img) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d');
     this.x = 30;
@@ -10,7 +10,7 @@ function Player(canvas, yInicial) {
     this.inPlatform = 1;
     this.bullet = [];
     this.img = new Image();
-    this.img.src = 'astronauta.png';
+    this.img.src = img;
 }
 
 Player.prototype.draw = function() {
@@ -66,7 +66,7 @@ Player.prototype.gravity = function(platform) {
     }
 }
 
-Player.prototype.createBullet = function(velocity) {
+Player.prototype.createBullet = function() {
     var bullet = new Bullet(this.canvas, this.y);
     this.bullet.push(bullet);
 }
