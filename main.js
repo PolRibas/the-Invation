@@ -15,8 +15,10 @@ function main() {
         <h1>THE INVASION</h1>
         <p>Play with arrows</p>
         <button class="myButton">Start</button>
+        <canvas width="700" height=80></canvas>
         </section>
         `);
+        animation();
         var startButton = splashScreen.querySelector('button');
         startButton.addEventListener('click', selectPlayer);
     }
@@ -46,7 +48,7 @@ function main() {
         var gameScreen = buildDom(`
         <section class="flex-section">
         <h1>THE INVASION</h1>
-        <canvas width="500" height=400></canvas>
+        <canvas class="juego" width="500" height=400></canvas>
         </section>
         `);
         var canvas = document.querySelector('canvas');
@@ -86,8 +88,10 @@ function main() {
         <h1>GAME OVER</h1>
         <p>Level ${level}!!! ${text}</p>
         <button class="myButton">Restart</button>
+        <canvas width="700" height=80></canvas>
         </section>
         `);
+        animation();
         var restartButton = gameOverScreen.querySelector('button');
         restartButton.addEventListener('click', selectPlayer);
     }

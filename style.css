@@ -103,6 +103,7 @@ p {
     padding: 6px 24px;
     text-decoration: none;
     text-shadow: 0px 1px 0px #9752cc;
+    margin-bottom: 1.5%;
 }
 
 .myButton:hover {
@@ -132,7 +133,7 @@ p {
     margin-top: 10%;
 }
 
-canvas {
+.juego {
     border: 4px solid black;
     box-shadow: 5px 5px 5px 5px #111;
 }
