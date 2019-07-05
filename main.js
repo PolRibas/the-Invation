@@ -79,7 +79,7 @@ function main() {
             var text = `OMG ${score} points, NEW RECORD!!`;
             bestScore = score;
         } else if (score < 150) {
-            var text = `you just make ${score} points`;
+            var text = `you only made ${score} points`;
         } else {
             var text = `not bad, you make ${score} points`;
         }
